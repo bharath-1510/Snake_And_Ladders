@@ -37,7 +37,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
   }
   ngOnInit(): void {
-    this.player = new Player(1, 0, '#fff');
+    this.player = new Player(1, 0, 'lightcoral');
     this.snake = [];
     this.ladder = [];
   }
@@ -221,41 +221,39 @@ export class AppComponent implements AfterViewInit, OnInit {
       this.hideDice[this.diceValue - 1]
     ) as HTMLElement;
     ele.style.display = 'block';
-    await sleep(2000);
+    const playerDiv1 = document.getElementById(
+      'div' + this.player.position
+    ) as HTMLElement;
+    if (this.player.position != 0) {
+      playerDiv1.style.background = 'white';
+    }
+    await sleep(1000);
     ele.style.display = 'none';
 
     this.disableButton = false;
     this.player.position = this.player.position + this.diceValue;
     if (this.ladder[0].start == this.player.position) {
       this.player.position = this.ladder[0].end;
-      return;
-    }
-    if (this.ladder[1].start == this.player.position) {
+    } else if (this.ladder[1].start == this.player.position) {
       this.player.position = this.ladder[1].end;
-      return;
-    }
-    if (this.snake[0].end == this.player.position) {
+    } else if (this.snake[0].end == this.player.position) {
       this.player.position = this.snake[0].start;
-      return;
-    }
-    if (this.snake[1].end == this.player.position) {
+    } else if (this.snake[1].end == this.player.position) {
       this.player.position = this.snake[1].start;
-      return;
-    }
-    if (this.snake[2].end == this.player.position) {
+    } else if (this.snake[2].end == this.player.position) {
       this.player.position = this.ladder[2].start;
-      return;
-    }
-    if (this.player.position > 100) {
+    } else if (this.player.position > 100) {
       this.player.position -= this.diceValue;
-      return;
-    }
-    if (this.player.position === 100) {
+    } else if (this.player.position === 100) {
       alert('winner ' + this.player.id + ' Dice Value : ' + this.diceValue);
       this.player.position = 0;
       this.diceValue = 0;
-      return;
     }
+    const playerDiv = document.getElementById(
+      'div' + this.player.position
+    ) as HTMLElement;
+
+    playerDiv.style.background = this.player.color;
   }
 
   getRandomIntInclusive(min: number, max: number): number {

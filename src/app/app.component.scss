@@ -1,0 +1,54 @@
+.container {
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+
+  .game-container {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    width: 610px;
+
+    svg {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 900px;
+      height: 625px;
+    }
+    .box {
+      width: 60px;
+      margin-top: 2px;
+
+      height: 60px;
+      text-align: center;
+      padding: 15px;
+      background-color: azure;
+    }
+  }
+  .score-section {
+    color: white;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 140px;
+
+    p {
+      padding: 2px;
+      font-size: 30px;
+      width: 100%;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    button {
+      width: 100%;
+      font-size: 20px;
+      height: 30px;
+      text-transform: uppercase;
+    }
+  }
+}

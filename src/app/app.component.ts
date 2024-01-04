@@ -14,6 +14,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   ladder!: Ladder[];
   player!: Player;
   diceValue: number = 0;
+  disableButton!: boolean;
+  hideDice: string[] = ['one1', 'two1', 'three1', 'four1', 'five1', 'six1'];
   constructor() {
     let k = 10;
     let j = 1;
@@ -40,6 +42,11 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.ladder = [];
   }
   ngAfterViewInit(): void {
+    for (let index = 0; index < this.hideDice.length; index++) {
+      const element = this.hideDice[index];
+      const ele = document.getElementById(element) as HTMLElement;
+      ele.style.display = 'none';
+    }
     let startArr = [1, 2, 3, 4, 17, 18, 19, 20, 21, 22, 23, 24];
     let endArr = [71, 73, 74, 87, 88, 89, 90, 91, 92, 93, 94];
     let start = this.getRandomInt(startArr);
@@ -207,8 +214,17 @@ export class AppComponent implements AfterViewInit, OnInit {
   getRandomInt(arr: number[]): number {
     return arr[Math.floor(Math.random() * arr.length)];
   }
-  dice() {
+  async dice() {
+    this.disableButton = true;
     this.diceValue = this.getRandomIntInclusive(1, 6);
+    const ele = document.getElementById(
+      this.hideDice[this.diceValue - 1]
+    ) as HTMLElement;
+    ele.style.display = 'block';
+    await sleep(2000);
+    ele.style.display = 'none';
+
+    this.disableButton = false;
     this.player.position = this.player.position + this.diceValue;
     if (this.ladder[0].start == this.player.position) {
       this.player.position = this.ladder[0].end;
@@ -241,9 +257,13 @@ export class AppComponent implements AfterViewInit, OnInit {
       return;
     }
   }
+
   getRandomIntInclusive(min: number, max: number): number {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+}
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

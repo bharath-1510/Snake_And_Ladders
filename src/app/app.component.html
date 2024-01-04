@@ -122,9 +122,20 @@
     </svg>
   </div>
   <div class="score-section">
-    <p class="value">Dice Value</p>
-    <p>{{ diceValue }}</p>
-    <button type="button" (click)="dice()">Dice</button>
+    <p class="value">Dice Value {{ diceValue }}</p>
+    <div class="dice" id="dice" [hidden]="disableButton">
+      <div class="side one"></div>
+      <div class="side two"></div>
+      <div class="side three"></div>
+      <div class="side four"></div>
+      <div class="side five"></div>
+      <div class="side six"></div>
+    </div>
+    <div class="{{ side }}" *ngFor="let side of hideDice" id="{{ side }}"></div>
+
+    <button type="button" (click)="dice()" [disabled]="disableButton">
+      Stop
+    </button>
     <p>Position {{ player.position }}</p>
     <p>Player {{ player["id"] }}</p>
   </div>
